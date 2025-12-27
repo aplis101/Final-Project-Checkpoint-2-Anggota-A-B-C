@@ -1,8 +1,9 @@
-import { useState } from "react";
 import Navbar from "../components/public/Navbar";
 import Footer from "../components/public/Footer";
 import HeroSection from "../components/public/HeroSection";
 import EventCard from "../components/public/EventCard";
+import { useEffect, useState } from "react";
+import { getEvents } from "../services/eventService";
 
 import { Input } from "../components/ui/input";
 import {
@@ -13,43 +14,29 @@ import {
   SelectValue,
 } from "../components/ui/select";
 
-const allEvents = [
-  {
-    id: 1,
-    name: "Jazz Gunung 2025",
-    category: "Music",
-    date: "2025-08-12",
-    price: 750000,
-    location: "Bromo Amphitheater",
-    image: "https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg",
-  },
-  {
-    id: 2,
-    name: "Tech Conference",
-    category: "Seminar",
-    date: "2025-09-01",
-    price: 500000,
-    location: "Jakarta Convention Center",
-    image: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg",
-  },
-  {
-    id: 3,
-    name: "Indie Music Fest",
-    category: "Music",
-    date: "2025-10-15",
-    price: 300000,
-    location: "Bandung Creative Hub",
-    image: "https://images.pexels.com/photos/976866/pexels-photo-976866.jpeg",
-  },
-];
 
 export default function Home() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  getEvents()
+    .then((data) => {
+      setEvents(data);
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.error("Gagal fetch events:", error);
+      setLoading(false);
+    });
+  }, []);
+
 
   // 🔍 LOGIC FILTER
-  const filteredEvents = allEvents.filter((event) => {
-    const matchSearch = event.name
+  const filteredEvents = events.filter((event) => {
+    const matchSearch = event.title
       .toLowerCase()
       .includes(search.toLowerCase());
 
@@ -58,6 +45,7 @@ export default function Home() {
 
     return matchSearch && matchCategory;
   });
+
 
   return (
     <>
@@ -87,7 +75,9 @@ export default function Home() {
 
       {/* EVENT LIST */}
       <div className="max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredEvents.length > 0 ? (
+        {loading ? (
+          <p className="col-span-full text-center">Loading event...</p>
+        ) : filteredEvents.length > 0 ? (
           filteredEvents.map((event) => (
             <EventCard key={event.id} event={event} />
           ))
@@ -97,6 +87,7 @@ export default function Home() {
           </p>
         )}
       </div>
+
 
       <Footer />
     </>
