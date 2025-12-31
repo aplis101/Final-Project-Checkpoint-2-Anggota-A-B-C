@@ -1,55 +1,76 @@
 export default function FormData() {
   return (
-    <form className="border p-4 rounded bg-white">
-      <h2 className="font-bold mb-4">Tambah Event</h2>
+    <form className="bg-white p-6 rounded shadow space-y-4">
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Event Name
+        </label>
+        <input
+          type="text"
+          className="w-full border px-3 py-2 rounded"
+          placeholder="Event name"
+        />
+      </div>
 
-      {/* Nama Event */}
-      <input
-        type="text"
-        placeholder="Nama Event"
-        className="border p-2 w-full mb-3 rounded"
-      />
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Category
+        </label>
+        <select className="w-full border px-3 py-2 rounded">
+          <option>Music</option>
+          <option>Seminar</option>
+          <option>Workshop</option>
+        </select>
+      </div>
 
-      {/* Kategori */}
-      <input
-        type="text"
-        placeholder="Kategori (Music, Seminar, dll)"
-        className="border p-2 w-full mb-3 rounded"
-      />
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Date
+        </label>
+        <input
+          type="date"
+          className="w-full border px-3 py-2 rounded"
+        />
+      </div>
 
-      {/* Tanggal */}
-      <input
-        type="date"
-        className="border p-2 w-full mb-3 rounded"
-      />
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Price
+        </label>
+        <input
+          type="number"
+          className="w-full border px-3 py-2 rounded"
+          placeholder="Price"
+        />
+      </div>
 
-      {/* Harga */}
-      <input
-        type="number"
-        placeholder="Harga"
-        className="border p-2 w-full mb-3 rounded"
-      />
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Image URL
+        </label>
+        <input
+          type="text"
+          className="w-full border px-3 py-2 rounded"
+          placeholder="https://..."
+        />
+      </div>
 
-      {/* Lokasi */}
-      <input
-        type="text"
-        placeholder="Lokasi Event"
-        className="border p-2 w-full mb-3 rounded"
-      />
-
-      {/* Image URL */}
-      <input
-        type="text"
-        placeholder="Image URL (poster event)"
-        className="border p-2 w-full mb-4 rounded"
-      />
+      <div>
+        <label className="block text-sm font-medium mb-1">
+          Description
+        </label>
+        <textarea
+          rows="4"
+          className="w-full border px-3 py-2 rounded"
+          placeholder="Event description"
+        />
+      </div>
 
       <button
-        type="button"
-        onClick={() => console.log("Submit Event")}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
       >
-        Simpan
+        Save Event
       </button>
     </form>
   );

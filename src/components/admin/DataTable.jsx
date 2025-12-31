@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function DataTable({ events }) {
   return (
     <table className="w-full border border-gray-300">
@@ -17,16 +19,16 @@ export default function DataTable({ events }) {
             </td>
 
             <td className="border p-2 text-center">
-              {event.price}
+              Rp {event.price.toLocaleString()}
             </td>
 
             <td className="border p-2 text-center">
-              <button
-                onClick={() => console.log("Hapus:", event.id)}
-                className="bg-red-600 text-white px-3 py-1 rounded"
+              <Link
+                to={`/admin/events/edit/${event.id}`}
+                className="inline-block bg-red-600 text-white px-3 py-1 rounded"
               >
-                Hapus
-              </button>
+                Edit
+              </Link>
             </td>
           </tr>
         ))}
